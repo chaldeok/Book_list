@@ -71,6 +71,18 @@ h1 {
 .error {
     background: pink;
 }
-table {
-    margin-top: 50px;
+.table {
+    width: 50vw;
+    height: 5vh;
+    margin-top: 30px;
+    opacity: .7;
+}
+.table > thead > tr {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+#book-list > tr {
+    line-height: 30px;
 }
