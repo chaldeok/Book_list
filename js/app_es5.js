@@ -4,9 +4,9 @@ function Book(title, author, isbn) {
 	this.author = author;
 	this.isbn = isbn;
 }
-
 //UI Constructor
 function UI() {}
+
 UI.prototype.addBookToList = function(book) {
 	const list = document.getElementById('book-list');
 	const rowElem = document.createElement('tr');
@@ -24,6 +24,11 @@ UI.prototype.showAlert = function(message, className) {
 	setTimeout(function() {
 		document.querySelector('.alert').remove();
 	}, 3000);
+};
+UI.prototype.deleteBook = function(target) {
+	if(target.className === 'delete') {
+		target.parentElement.parentElement.remove();
+	}
 };
 UI.prototype.clearInputs = function() {
 	document.getElementById('title').value = '';
@@ -46,6 +51,14 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
 		ui.showAlert('Книга добавлена', 'success');
 		ui.clearInputs();
 	}
+
+	e.preventDefault();
+});
+
+document.getElementById('book-list').addEventListener('click', function(e) {
+	const ui = new UI();
+	ui.deleteBook(e.target);
+	ui.showAlert('Книга удалена', 'success');
 
 	e.preventDefault();
 });
