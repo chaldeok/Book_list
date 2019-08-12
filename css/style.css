@@ -86,3 +86,9 @@ h1 {
 #book-list > tr {
     line-height: 30px;
 }
+.alert {
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+}
