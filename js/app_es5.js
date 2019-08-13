@@ -1,10 +1,11 @@
-//Book Constructor
+/*
+Book Constructor
 function Book(title, author, isbn) {
 	this.title = title;
 	this.author = author;
 	this.isbn = isbn;
 }
-//UI Constructor
+UI Constructor
 function UI() {}
 
 UI.prototype.addBookToList = function(book) {
@@ -62,3 +63,4 @@ document.getElementById('book-list').addEventListener('click', function(e) {
 
 	e.preventDefault();
 });
+*/
