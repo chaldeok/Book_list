@@ -40,6 +40,41 @@ class UI {
 	}
 }
 
+class Store {
+	static getbooks() {
+		let books;
+		if(localStorage.getItem('books') === null) {
+			books = [];
+		} else {
+			books = JSON.parse(localStorage.getItem('books'));
+		}
+		return books;
+	}
+	static displayBooks() {
+		const books = Store.getbooks();
+		books.forEach(function(book) {
+			const ui = new UI;
+			ui.addBookToList(book);
+		})
+	}
+	static addBook(book) {
+		const books = Store.getbooks();
+		books.push(book);
+		localStorage.setItem('books', JSON.stringify(books));
+	}
+	static removeBook(isbn) {
+		const books = Store.getbooks();
+		books.forEach(function(book, index) {
+			if(books.isbn === isbn) {
+				books.splice(index, 1);
+			}
+		});
+		localStorage.setItem('books', JSON.stringify(books));
+	}
+}
+
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
+
 document.getElementById('book-form').addEventListener('submit', function(e) {
 	const title = document.getElementById('title').value,
 				author = document.getElementById('author').value,
@@ -52,6 +87,7 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
 		ui.showAlert('Заполните, пожалуйста, все поля формы', 'error');
 	} else {
 		ui.addBookToList(book);
+		Store.addBook(book);
 		ui.showAlert('Книга добавлена', 'success');
 		ui.clearInputs();
 	}
@@ -62,6 +98,7 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
 document.getElementById('book-list').addEventListener('click', function(e) {
 	const ui = new UI();
 	ui.deleteBook(e.target);
+	Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
 	ui.showAlert('Книга удалена', 'success');
 
 	e.preventDefault();
