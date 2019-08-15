@@ -43,29 +43,32 @@ class UI {
 class Store {
 	static getbooks() {
 		let books;
-		if(localStorage.getItem('books') === null) {
+		if (localStorage.getItem('books') === null) {
 			books = [];
 		} else {
 			books = JSON.parse(localStorage.getItem('books'));
 		}
 		return books;
 	}
+
 	static displayBooks() {
 		const books = Store.getbooks();
-		books.forEach(function(book) {
+		books.forEach(function (book) {
 			const ui = new UI;
 			ui.addBookToList(book);
 		})
 	}
+
 	static addBook(book) {
 		const books = Store.getbooks();
 		books.push(book);
 		localStorage.setItem('books', JSON.stringify(books));
 	}
+
 	static removeBook(isbn) {
 		const books = Store.getbooks();
-		books.forEach(function(book, index) {
-			if(books.isbn === isbn) {
+		books.forEach(function (book, index) {
+			if (books.isbn === isbn) {
 				books.splice(index, 1);
 			}
 		});
@@ -75,10 +78,10 @@ class Store {
 
 document.addEventListener('DOMContentLoaded', Store.displayBooks);
 
-document.getElementById('book-form').addEventListener('submit', function(e) {
+document.getElementById('book-form').addEventListener('submit', function (e) {
 	const title = document.getElementById('title').value,
-				author = document.getElementById('author').value,
-				isbn = document.getElementById('isbn').value;
+			author = document.getElementById('author').value,
+			isbn = document.getElementById('isbn').value;
 
 	const book = new Book(title, author, isbn);
 
@@ -95,7 +98,7 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
 	e.preventDefault();
 });
 
-document.getElementById('book-list').addEventListener('click', function(e) {
+document.getElementById('book-list').addEventListener('click', function (e) {
 	const ui = new UI();
 	ui.deleteBook(e.target);
 	Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
